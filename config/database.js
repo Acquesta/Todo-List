@@ -6,4 +6,4 @@ const conn = async()=>{
 }
 
 //exportar as informações para acesso externo
-modelu.export = conn
+module.exports = conn
