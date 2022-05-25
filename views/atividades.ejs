@@ -11,26 +11,31 @@
 <body>
     <div class="container">
         <h1 class="text-center">Lista de Atividades</h1>
+        <h3 class="text-center">Usuarios: <%=nome%></h3>
         <div class="row">
             <div class="col-sm text-center">
                 <h3 class="text-center">Cadastrar</h3>
                 <form action="" method="POST" class="form-control">
-                    <input type="date" name="data" id="" class="form-control" placeholder="Data">
-                    <select name="tipo" id="" class="form-control">
+                    <div class="form-floating">
+                        <input type="date" name="data" id="floatingInput" class="form-control" placeholder="Data">
+                        <label for="floatingInput">Data de Entrega</label>
+                    </div>
+                    
+                    <div class="form-floating">
+                    <select name="tipo" id="floatingSelect" class="form-control">
                         <option value="0">Selecione...</option>
                         <option value="1">AC</option>
                         <option value="2">AT</option>
                         <option value="3">REC</option>
                         <option value="4">Exame</option>
                     </select>
+                    <label for="floatingSelect">Tipo de Atividade</label>
+                    </div>
                     <input type="radio" name="entrega" class="form-check-input" id="" value="tarefa">Tarefa no Teams
                     <input type="radio" name="entrega" class="form-check-input" id="" value="chat">Chat do Teams
                     <input type="radio" name="entrega" class="form-check-input" id="" value="email">Email
                     <input type="radio" name="entrega" class="form-check-input" id="" value="formulario">Forms
-
-                    <input type="email" name="email" id="" class="form-control" placeholder="email">
-                    <input type="password" name="senha" id="" class="form-control" placeholder="Senha">
-                    <input type="password" name="senha2" id="" class="form-control" placeholder="Redigite a senha">
+                    
                     <input type="submit" value="Registro" class="btn btn-info">
                 </form>
                 <a href="/login"class="btn btn-info botao">Login</a>
