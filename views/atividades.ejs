@@ -15,7 +15,9 @@
         <div class="row">
             <div class="col-sm text-center">
                 <h3 class="text-center">Cadastrar</h3>
-                <form action="" method="POST" class="form-control">
+                <form action="/atividades" method="POST" class="form-control">
+                    <input type="hidden" name="id" value="<%=id%>">
+                    <input type="hidden" name="nome" value="<%=nome%>">
                     <div class="form-floating">
                         <input type="date" name="data" id="floatingInput" class="form-control" placeholder="Data">
                         <label for="floatingInput">Data de Entrega</label>
@@ -31,14 +33,33 @@
                     </select>
                     <label for="floatingSelect">Tipo de Atividade</label>
                     </div>
+                    <label for="" class="form-control">Como Entrega:</label>
                     <input type="radio" name="entrega" class="form-check-input" id="" value="tarefa">Tarefa no Teams
                     <input type="radio" name="entrega" class="form-check-input" id="" value="chat">Chat do Teams
                     <input type="radio" name="entrega" class="form-check-input" id="" value="email">Email
                     <input type="radio" name="entrega" class="form-check-input" id="" value="formulario">Forms
-                    
-                    <input type="submit" value="Registro" class="btn btn-info">
+                    <label for="" class="form-control">Orientações:</label>
+                    <textarea name="orientacoes" id="" cols="30" rows="10" class="form-control"></textarea>
+                    <input type="submit" value="Gravar" class="btn btn-success">
                 </form>
-                <a href="/login"class="btn btn-info botao">Login</a>
+            </div>
+            <div class="col-sm text-center">
+                <h3>Atividades Cadastradas</h3>
+                <div class="card">
+                    <div class="card-header bg-dark text-light">Data:</div>
+                    <div class="card-body">
+                        <div class="card-title">Tipo:</div>
+                        <div class="card-subititle">Entrega:</div>
+                        <div class="card-text">Orientações:</div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="input-group">
+                            <input type="button" value="Entregue" class="btn btn-success  form-control">
+                            <input type="button" value="Alterar" class="btn btn-info  form-control">
+                            <input type="button" value="Excluir" class="btn btn-danger form-control">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
