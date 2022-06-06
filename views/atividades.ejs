@@ -38,28 +38,48 @@
                     <input type="radio" name="entrega" class="form-check-input" id="" value="chat">Chat do Teams
                     <input type="radio" name="entrega" class="form-check-input" id="" value="email">Email
                     <input type="radio" name="entrega" class="form-check-input" id="" value="formulario">Forms
+                    <label for="" class="form-control">Matéria:</label>
+                    <input type="radio" name="materia" class="form-check-input" id="" value="Matematica">Matematica
+                    <input type="radio" name="materia" class="form-check-input" id="" value="Física">Física
+                    <input type="radio" name="materia" class="form-check-input" id="" value="Química">Química
+                    <input type="radio" name="materia" class="form-check-input" id="" value="Português">Português
                     <label for="" class="form-control">Orientações:</label>
                     <textarea name="orientacoes" id="" cols="30" rows="10" class="form-control"></textarea>
                     <input type="submit" value="Gravar" class="btn btn-success">
+
+                    
                 </form>
             </div>
             <div class="col-sm text-center">
                 <h3>Atividades Cadastradas</h3>
-                <div class="card">
-                    <div class="card-header bg-dark text-light">Data:</div>
-                    <div class="card-body">
-                        <div class="card-title">Tipo:</div>
-                        <div class="card-subititle">Entrega:</div>
-                        <div class="card-text">Orientações:</div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="input-group">
-                            <input type="button" value="Entregue" class="btn btn-success  form-control">
-                            <input type="button" value="Alterar" class="btn btn-info  form-control">
-                            <input type="button" value="Excluir" class="btn btn-danger form-control">
+
+                <%for(var n=0; n<dados.length; n++){%>
+    
+                    <div class="card">
+    
+                        <div class="card-header">Data: <%=dados[n].data.getDate()%>/<%=dados[n].data.getMonth()+1%>/<%=dados[n].data.getFullYear() %></div>
+                        <div class="card-body">
+                            <div class="card-title">Tipo:<%=dados[n].tipo %></div>
+                            <div class="card-subtitle">Entrega:<%=dados[n].entrega %></div>
+                            <div class="card-materia">Matéria:<%=dados[n].materia%></div>
+                            <div class="card-text">Orientações:<%=dados[n].instrucoes %></div>
+                            
                         </div>
+                        <div class="card-footer">
+                            <div class="input-group">
+                                <input type="button" value="Entregue" class="btn btn-success form-control">
+                                <input type="button" value="Alterar" class="btn btn-warning form-control">
+                                <input type="button" value="Excluir" class="btn btn-danger form-control" onclick="(window.location.href='/excluir?id=<%=dados[n]._id%>')">
+                            </div>
+    
+                        </div>
+    
                     </div>
-                </div>
+                    <br>
+    
+                    <% } %>
+
+
             </div>
         </div>
     </div>

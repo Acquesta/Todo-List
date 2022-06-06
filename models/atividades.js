@@ -6,6 +6,7 @@ const modelo = mongoose.Schema({
     data:Date,
     tipo:String,
     entrega: String,
+    materia: String,
     disciplina:String,
     instrucoes:String,
     usuario:String

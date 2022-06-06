@@ -1,3 +1,5 @@
+const atividades = require('../models/atividades')
+
 module.exports = (app)=>{
     app.post('/atividades', async(req,res)=>{
         //recuperando as informações digitadas
@@ -12,13 +14,42 @@ module.exports = (app)=>{
             data:dados.data,
             tipo:dados.tipo,
             entrega:dados.entrega,
+            materia:dados.materia,
             instrucoes:dados.orientacoes,
-            usuario:dados.id
+            usuario:dados.id    
         }).save()
 
         //buscar todas as atividades desse usuário 
         var buscar = await atividades.find({usuario:dados.id})
         //console.log(buscar)
         res.render('atividades.ejs', {nome:dados.nome,id:dados.id,dados:buscar})
+    })
+
+    //excluir atividades
+    app.get('/excluir', async (req,res)=>{
+
+        //recuperando as informações digitadas
+        var dados = req.body
+
+        
+        //buscar todas as atividades desse usuário 
+        var buscar = await atividades.find({usuario:dados.id})
+
+        //recuperar o parametro id da base de endereço
+        var id = req.query.id
+        var excluir = await atividades.findOneAndRemove({
+            _id:id
+        })
+        if(!excluir){
+            res.send("Não foi possível exclluir")
+        }else{
+            res.send("Atividade excluída")
+        }
+
+        console.log(id)
+
+        //voltar para página atividades
+        //res.render('atividades.ejs', {nome:dados.nome,id:dados.id,dados:buscar})
+        //res.redirect("/atividades")
     })
 }
