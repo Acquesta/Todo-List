@@ -1,11 +1,24 @@
 const atividades = require('../models/atividades')
+const usuarios = require('../models/usuarios')
 
 module.exports = (app)=>{
+
+    //criar rota para renderizar a view atividades
+    app.get('/atividades', async(req,res)=>{
+        //capturar id da barra de endereço
+        var id = req.query.id   
+        //buscar o nmome da colection usuarios
+        var user = await usuraio.findOne({_id:id})
+        //buscar todas as atividades desse usuario
+        var buscar = await atividades.findOne({usuario:id})
+        //console.log(buscar)
+        res.render('atividades.ejs', {nome:user.nome,id:user._id,dados:buscar}) 
+    })
+
     app.post('/atividades', async(req,res)=>{
         //recuperando as informações digitadas
         var dados = req.body
         //axibindo no terminal
-        //console.log(dados)
         const conexao = require('../config/database')()
         //model atividades
         const atividades = require('../models/atividades')
@@ -19,37 +32,20 @@ module.exports = (app)=>{
             usuario:dados.id    
         }).save()
 
-        //buscar todas as atividades desse usuário 
-        var buscar = await atividades.find({usuario:dados.id})
         //console.log(buscar)
         res.render('atividades.ejs', {nome:dados.nome,id:dados.id,dados:buscar})
     })
 
     //excluir atividades
     app.get('/excluir', async (req,res)=>{
-
-        //recuperando as informações digitadas
-        var dados = req.body
-
-        
-        //buscar todas as atividades desse usuário 
-        var buscar = await atividades.find({usuario:dados.id})
-
         //recuperar o parametro id da base de endereço
         var id = req.query.id
         var excluir = await atividades.findOneAndRemove({
             _id:id
         })
-        if(!excluir){
-            res.send("Não foi possível exclluir")
-        }else{
-            res.send("Atividade excluída")
-        }
-
         console.log(id)
 
-        //voltar para página atividades
-        //res.render('atividades.ejs', {nome:dados.nome,id:dados.id,dados:buscar})
-        //res.redirect("/atividades")
+        //redirecionar para rota atividades
+        res.redirect('/atividades?id='+excluir.usuario)
     })
 }
