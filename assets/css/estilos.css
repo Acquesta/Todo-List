@@ -2,7 +2,12 @@
     width: 125px;
     margin-bottom: 10px;
 }
-
 textarea{
     resize: none;
+}
+
+.logoff{
+    position:fixed;
+    right: 0;
+    z-index: 9;
 }

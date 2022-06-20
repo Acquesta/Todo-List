@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Atividades</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+    <div class="container">
+      <a href="/login" class="btn btn-danger logoff"><i class="bi bi-power"></i></a>
+        <h1 class="text-center">Lista de Atividades</h1>
+        <h3 class="text-center">Usuário: <%=nome%>
+        </h3>
+        <div class="row">
+            <div class="col-sm text-center order-2">
+                <h3 class="text-center">Cadastrar</h3>
+                <form action="/atividades" method="post" class="form-control">
+                    <input type="hidden" name="id" value="<%=id%>">
+                    <input type="hidden" name="nome" value="<%=nome%>">
+                    <div class="form-floating">
+                        <input type="date" name="data" id="floatingSelect" class='form-control' placeholder="Data">
+                        <label for="floatingInput">Data de Entrega</label>
+                    </div>
+                    <div class="class form-floating">
+                        <select name="tipo" id="floatingSelect" class="form-control">
+                            <option value="0">Selecione...</option>
+                            <option value="1">Ac</option>
+                            <option value="2">At</option>
+                            <option value="3">Rec</option>
+                            <option value="4">Exame</option>
+                        </select>
+                        <label for="floatingSelect">Tipo de Atividade</label>
+                    </div>
+                     <div class="class form-floating">
+                        <select name="disciplina" id="floatingSelect" class="form-control">
+                            <option value="LP2">Linguagem de Programação</option>
+                            <option value="BDS">Banco de Dados</option>
+                            <option value="INW">Internet</option>
+                            <option value="MAT">Matemática</option>
+                        </select>
+                        <label for="floatingSelect">Disciplina</label>
+                    </div>
+                     <label for="" class="form-control">Como entregar:</label>    
+                    <input type="radio" name="entrega" class="form-check-input" id="" value="tarefa">Tarefa no Teams
+                    <input type="radio" name="entrega" class="form-check-input" id="" value="chat">Chat do Teams
+                    <input type="radio" name="entrega" class="form-check-input" id="" value="email">Email
+                    <input type="radio" name="entrega" class="form-check-input" id="" value="formulario">Forms<br>
+                    <label for="" class="form-control">Orientações:</label>
+                    <textarea name="orientacao" id="" cols="30" rows="10" class="form-control"></textarea>
+                    <input type="submit" value="Gravar" class="btn btn-danger">
+                </form>
+            </div>
+            <div class="col-sm text-center order-1">
+                <h3>Atividades Cadastradas</h3>
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                          Em aberto (<%=dados.length%>)
+                        </button>
+                      </h2>
+                      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                        <div class="accordion-body">
+                            <% for (var n=0; n<dados.length;n++){%>
+                                <div class="card">
+                                    <div class="card-header bg-dark text-light">Data:<%=dados[n].data.getDate()+1%>/<%=dados[n].data.getMonth()+1%>/<%=dados[n].data.getFullYear()%>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="card-title">Tipo:<%=dados[n].tipo%>
+                                        </div>
+                                        <div class="card-title">Disciplina:<%=dados[n].disciplina%>
+                                        </div>
+                                        <div class="card-subtitle">Entrega:<%=dados[n].entrega%>
+                                        </div>
+                                        <div class="card-text">Orientações:<%=dados[n].instrucoes%> 
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="input-group">
+                                            <input type="button" value="Entregue" class="btn btn-success form-control" onclick="(window.location.href='/entregue?id=<%=dados[n]._id%>')"> 
+                                            <input type="button" value="Alterar" class="btn btn-warning form-control" onclick="(window.location.href='/alterar?id=<%=dados[n]._id%>')"">
+                                            <input type="button" value="Excluir" class="btn btn-danger form-control" onclick="(window.location.href='/excluir?id=<%=dados[n]._id%>')">
+                                        </div>
+                                        </div>
+                                </div> <% }%>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                          Entregues (<%=dadose.length%>)
+                        </button>
+                      </h2>
+                      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                        <div class="accordion-body">
+                            <% for (var n=0; n<dadose.length;n++){%>
+                                <div class="card">
+                                    <div class="card-header bg-dark text-light">Data:<%=dadose[n].data.getDate()+1%>/<%=dadose[n].data.getMonth()+1%>/<%=dadose[n].data.getFullYear()%>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="card-title">Tipo:<%=dadose[n].tipo%>
+                                        </div>
+                                        <div class="card-title">Disciplina:<%=dadose[n].disciplina%>
+                                        </div>
+                                        <div class="card-subtitle">Entrega:<%=dadose[n].entrega%>
+                                        </div>
+                                        <div class="card-text">Orientações:<%=dadose[n].instrucoes%> 
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="input-group">
+                                            <input type="button" value="Desfazer" class="btn btn-outline-info form-control" onclick="(window.location.href='/desfazer?id=<%=dadose[n]._id%>')"> 
+                      
+                                            <input type="button" value="Excluir" class="btn btn-outline-danger form-control" onclick="(window.location.href='/excluir?id=<%=dadose[n]._id%>')">
+                                        </div>
+                                        </div>
+                                </div> <% }%>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                          Excluidas (<%=dadosx.length%>)
+                        </button>
+                      </h2>
+                      <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                        <div class="accordion-body">
+                            <% for (var n=0; n<dadosx.length;n++){%>
+                                <div class="card">
+                                    <div class="card-header bg-dark text-light">Data:<%=dadosx[n].data.getDate()+1%>/<%=dadosx[n].data.getMonth()+1%>/<%=dadosx[n].data.getFullYear()%>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="card-title">Tipo:<%=dadosx[n].tipo%>
+                                        </div>
+                                        <div class="card-title">Disciplina:<%=dadosx[n].disciplina%>
+                                        </div>
+                                        <div class="card-subtitle">Entrega:<%=dadosx[n].entrega%>
+                                        </div>
+                                        <div class="card-text">Orientações:<%=dadosx[n].instrucoes%> 
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="input-group">
+                                            <input type="button" value="Desfazer" class="btn btn-info form-control" onclick="(window.location.href='/desfazer?id=<%=dadosx[n]._id%>')"> 
+                                            
+                                        </div>
+                                        </div>
+                                </div> <% }%>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </body>
+            </div> 
+        </div>
+    </div>
+</body>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</html>

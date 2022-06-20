@@ -1,4 +1,4 @@
-//importar o mongoose 
+//importar o mongoose
 const mongoose = require('mongoose')
 
 //criar a estrutura para o armazenamento das informações do usuário 
@@ -8,9 +8,8 @@ const modelo = mongoose.Schema({
     senha:String
 })
 
-//gravar a estrutura na model usuarios 
-const usuarios = mongoose.model('usuarios', modelo)
+//gravar a estrutura na model usuários
+const usuarios = mongoose.model('usuarios',modelo)
 
 //exportar os dados para acesso externo
-
-module.exports = usuarios 
+module.exports = usuarios
