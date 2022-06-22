@@ -21,11 +21,12 @@
         <div class="row">
             <div class="col-sm text-center order-2">
                 <h3 class="text-center">Alterar</h3>
-                <form action="/atividades" method="post" class="form-control">
+                <form action="" method="post" class="form-control">
                     <input type="hidden" name="id" value="<%=id%>">
                     <input type="hidden" name="nome" value="<%=nome%>">
+                    <input type="hidden" name="id_a" value="<%=dados._id%>">
                     <div class="form-floating">
-                        <input type="date" name="data" id="floatingSelect" class='form-control' placeholder="Data">
+                        <input type="date" name="data" id="floatingSelect" class='form-control' placeholder="Data" value="<%=dados.data.toISOString().slice(0,10)%>" required>
                         <label for="floatingInput">Data de Entrega</label>
                     </div>
                     <div class="class form-floating">
@@ -39,10 +40,10 @@
                     </div>
                      <div class="class form-floating">
                         <select name="disciplina" id="floatingSelect" class="form-control">
-                            <option value="LP2" >Linguagem de Programação</option>
-                            <option value="BDS">Banco de Dados</option>
-                            <option value="INW">Internet</option>
-                            <option value="MAT">Matemática</option>
+                            <option value="LP2"  <%=dados.disciplina=="LP2"?"selected":""%> >Linguagem de Programação</option>
+                            <option value="BDS" <%=dados.disciplina=="BDS"?"selected":""%> >Banco de Dados</option>
+                            <option value="INW" <%=dados.disciplina=="INW"?"selected":""%> >Internet</option>
+                            <option value="MAT" <%=dados.disciplina=="MAT"?"selected":""%> >Matemática</option>
                         </select>
                         <label for="floatingSelect">Disciplina</label>
                     </div>
@@ -53,6 +54,7 @@
                     <input type="radio" name="entrega" class="form-check-input" id="" value="formulario" <%=dados.entrega=="formulario"?"checked":""%>>Forms<br>
                     <label for="" class="form-control">Orientações:</label>
                     <textarea name="orientacao" id="" cols="30" rows="10" class="form-control"><%=dados.instrucoes%></textarea>
+                    <input type="submit" value="Cancelar" class="btn btn-danger">
                     <input type="submit" value="Alterar" class="btn btn-danger">
                 </form>
             </div>

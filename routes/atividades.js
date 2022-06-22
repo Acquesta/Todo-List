@@ -83,13 +83,28 @@ app.get("/entregue",async(req,res)=>{
             //buscar o nome na collection usuarios
             var user = await usuarios.findOne({_id:alterar.usuario})
             
-            res.render('alterar.ejs',{nome:user.nome,id:user._id,dados:usuarios})
+            res.render('alterar.ejs',{nome:user.nome,id:user._id,dados:alterar})
 
-            //console.log(dados.date.getFullYear(), dados.date.getMonth()+1, dados.date.getDate()+1)
-    
+            //console.log(dados.tipo)
+        })
+
+        //criar a rota para gravar as alterações para a atividade
+        app.post('/alterar', async(req,res)=>{
+
+            //quais são as informações digitadas 
+            var infos = req.body
+
+            //gravar as alterações na collectios atividades
+            var gravar = await atividades.findOneAndUpdate(
+                {_id:infos.id_a},
+                {data:infos.data,
+                tipo:infos.tipo,
+                disciplina:infos.disciplina,
+                entrega:infos.entrega,
+                instrucoes:infos.orientacao}
+            )
+            res.redirect('/atividades?id='+infos.id)
+            
         })
 
 }
-
-
-
